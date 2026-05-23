@@ -49,7 +49,7 @@ const userSchema = new Schema({
 userSchema.pre("save",async function(next){
     if(!this.isModified("password")) return next()  // if password is not modified skip hashing(or encryption)
 
-    this.password=bcrypt.hash(this.password,10) //if modified hash it before moving to next middleware or saving to database by 10 rounds of encryption
+    this.password=await bcrypt.hash(this.password,10) //if modified hash it before moving to next middleware or saving to database by 10 rounds of encryption
     next()
 })
 
